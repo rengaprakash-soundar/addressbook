@@ -21,21 +21,21 @@ pipeline {
         
             steps {
                 
-                sh 'docker build -t dilipsun/addressbook$(git rev-parse HEAD):latest .'
+                sh 'docker build -t rengaprakash123/addressbook$(git rev-parse HEAD):latest .'
             }
     }
         stage('Docker Push') {
       steps {
         withCredentials([usernamePassword(credentialsId: '92dede17-31d7-4cbc-850a-3ea9ef02cc31', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
           sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-          sh 'docker push rengaprakash-soundar/addressbook$(git rev-parse HEAD):latest'
+          sh 'docker push rengaprakash123/addressbook$(git rev-parse HEAD):latest'
         }
       }
     }
         stage('Docker Deploy') {
        
       steps {
-          sh 'docker run -itd -P rengaprakash-soundar/addressbook$(git rev-parse HEAD):latest'
+          sh 'docker run -itd -P rengaprakash123/addressbook$(git rev-parse HEAD):latest'
         }
       }
     
