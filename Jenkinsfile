@@ -5,7 +5,7 @@ pipeline {
 	   
         stage ('Checkout') {
           steps {
-            git 'https://github.com/dilipsun/addressbook.git'
+            git 'https://github.com/rengaprakash-soundar/addressbook.git'
           }
         }
         stage('Build') {
@@ -28,14 +28,14 @@ pipeline {
       steps {
         withCredentials([usernamePassword(credentialsId: '92dede17-31d7-4cbc-850a-3ea9ef02cc31', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
           sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-          sh 'docker push dilipsun/addressbook$(git rev-parse HEAD):latest'
+          sh 'docker push rengaprakash-soundar/addressbook$(git rev-parse HEAD):latest'
         }
       }
     }
         stage('Docker Deploy') {
        
       steps {
-          sh 'docker run -itd -P dilipsun/addressbook$(git rev-parse HEAD):latest'
+          sh 'docker run -itd -P rengaprakash-soundar/addressbook$(git rev-parse HEAD):latest'
         }
       }
     
